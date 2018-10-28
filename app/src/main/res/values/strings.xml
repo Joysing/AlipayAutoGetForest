@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">蚂蚁森林收集能量助手</string>
+    <string name="alipay_forest_title">支付宝的蚂蚁森林自动采集器</string>
+    <string name="introduce">支付宝的蚂蚁森林自动采集器</string>
+    <string name="time_settings">设置定时器时间</string>
+    <string name="readme">"使用说明书：\n 1. 定时功能请在手机管家或应用管理设置 \n 2.1 允许应用自启动(防止被杀) \n 2.2 允许应用后台运行(防止被杀) \n 2.3 允许应用正常唤醒(防止定时器不准时) \n 3.定时时间：执行对应指令"</string>
+</resources>
