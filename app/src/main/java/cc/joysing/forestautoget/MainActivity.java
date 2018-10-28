@@ -3,15 +3,11 @@ package cc.joysing.forestautoget;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import cc.joysing.forestautoget.service.AccessibilityServiceMonitor;
-import cc.joysing.forestautoget.util.AccessibilitUtil;
 import cc.joysing.forestautoget.util.Config;
 import cc.joysing.forestautoget.util.ShareUtil;
 

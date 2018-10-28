@@ -2,11 +2,13 @@ package cc.joysing.forestautoget.xposed;
 
 
 import android.app.Activity;
+import android.app.AndroidAppHelper;
 import android.app.Application;
 import android.app.Notification;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.lang.reflect.Method;
 import java.util.Timer;
@@ -34,6 +36,9 @@ public class XposedHook implements IXposedHookLoadPackage {
             hookSecurity(lpparam);
             hookRpcCall();
         }
+        if ("com.tencent.mobileqq".equals(lpparam.packageName)) {
+            hookNotification(lpparam);
+        }
     }
     //hook通知栏消息
     private void hookNotification(XC_LoadPackage.LoadPackageParam lpparam) {
@@ -43,24 +48,23 @@ public class XposedHook implements IXposedHookLoadPackage {
                     , String.class, int.class, Notification.class
                     , new XC_MethodHook() {
                         @Override
-                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                             super.afterHookedMethod(param);
+                            final Context context = AndroidAppHelper.currentApplication();
                             param.setResult(null); //把honk到的值设为空（param是hook的方法中的参数的值）
                             Notification notification = (Notification)param.args[2];
-                            XposedBridge.log("loadpackage AlipayGphone  tickerText"+ notification.tickerText);
-                            XposedBridge.log("loadpackage AlipayGphone  title"+ notification.extras.get("android.title"));
-                            XposedBridge.log("loadpackage AlipayGphone  text"+ notification.extras.get("android.text"));
+                            XposedBridge.log("状态栏消息："+ notification.tickerText);
                             if(notification.extras.get("android.title").toString().contains("能量")||
                                     notification.extras.get("android.text").toString().contains("能量") ){
-                                TimerTask task = new TimerTask(){
-                                    public void run(){
-                                        new AccessibilityServiceMonitor().startUI();
-                                    }
-                                };
-                                Timer timer = new Timer();
-                                //因为支付宝通知是提前1分钟发的，所以一分钟后再打开
-                                timer.schedule(task, 1000*61);
 
+                                XposedBridge.log("60秒后打开蚂蚁森林");
+                                //因为支付宝通知是提前1分钟发的，所以一分钟后再打开
+                                new Timer().schedule(new TimerTask(){
+                                    public void run(){
+                                        XposedBridge.log("正在打开");
+                                        AlipayForestMonitor.startAlipay(context);
+                                    }
+                                }, 60*1000);
                             }
 
                         }

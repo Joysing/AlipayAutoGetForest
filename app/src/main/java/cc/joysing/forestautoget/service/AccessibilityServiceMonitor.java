@@ -44,7 +44,6 @@ public class AccessibilityServiceMonitor extends AccessibilityService {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-//        startUI();
         if (null == intent) {
             return super.onStartCommand(null, flags, startId);
         }
@@ -54,7 +53,7 @@ public class AccessibilityServiceMonitor extends AccessibilityService {
 
         if (ACTION_ALAM_TIMER.equals(action)) {
             MyApplication.startAlarmTask(this);
-            startUI();
+            startAlipayUI();
         }
 
         return super.onStartCommand(intent, flags, startId);
@@ -118,9 +117,9 @@ public class AccessibilityServiceMonitor extends AccessibilityService {
 
             if (Intent.ACTION_USER_PRESENT.equals(action)) {
                 isNewday = isNewDay();
-//                if (isNewday) {
-                    startUI();
-//                }
+                if (isNewday) {
+                    startAlipayUI();
+                }
             }
         }
     }
@@ -144,15 +143,7 @@ public class AccessibilityServiceMonitor extends AccessibilityService {
         return result;
     }
 
-
-    /**
-     * 启动UI界面
-     */
-    public void startUI() {
-        startAlipayUI();
-    }
-
-    private void startAlipayUI() {
+    public void startAlipayUI() {
         AlipayForestMonitor.startAlipay(this);
         mHandle.sendEmptyMessageDelayed(MSG_DELAY_ENTER_LIANGTONG, DEFAULT_DELAY_TIME * 10);
     }
