@@ -36,7 +36,7 @@ public class XposedHook implements IXposedHookLoadPackage {
             hookSecurity(lpparam);
             hookRpcCall();
         }
-        if ("com.tencent.mobileqq".equals(lpparam.packageName)) {
+        if ("com.android.calendar".equals(lpparam.packageName)) {
             hookNotification(lpparam);
         }
     }
