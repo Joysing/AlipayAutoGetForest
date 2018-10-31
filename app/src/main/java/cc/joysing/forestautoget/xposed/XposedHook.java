@@ -40,6 +40,7 @@ public class XposedHook implements IXposedHookLoadPackage {
             hookNotification(lpparam);
         }
     }
+
     //hook通知栏消息
     private void hookNotification(XC_LoadPackage.LoadPackageParam lpparam) {
         try {
@@ -51,20 +52,19 @@ public class XposedHook implements IXposedHookLoadPackage {
                         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                             super.afterHookedMethod(param);
                             final Context context = AndroidAppHelper.currentApplication();
-                            param.setResult(null); //把honk到的值设为空（param是hook的方法中的参数的值）
-                            Notification notification = (Notification)param.args[2];
-                            XposedBridge.log("状态栏消息："+ notification.tickerText);
-                            if(notification.extras.get("android.title").toString().contains("能量")||
-                                    notification.extras.get("android.text").toString().contains("能量") ){
-
+                            Notification notification = (Notification) param.args[2];
+                            String title = (String) notification.extras.get("android.title");
+                            String text = (String) notification.extras.get("android.text");
+                            XposedBridge.log("状态栏消息：" + title + "，" + text);
+                            if (title.contains("能量") || text.contains("能量")) {
                                 XposedBridge.log("60秒后打开蚂蚁森林");
                                 //因为支付宝通知是提前1分钟发的，所以一分钟后再打开
-                                new Timer().schedule(new TimerTask(){
-                                    public void run(){
-                                        XposedBridge.log("正在打开");
+                                new Timer().schedule(new TimerTask() {
+                                    public void run() {
+                                        XposedBridge.log("正在打开蚂蚁森林");
                                         AlipayForestMonitor.startAlipay(context);
                                     }
-                                }, 60*1000);
+                                }, 60 * 1000);
                             }
 
                         }
@@ -73,6 +73,7 @@ public class XposedHook implements IXposedHookLoadPackage {
             Log.i(TAG, "hookSecurity err:" + Log.getStackTraceString(e));
         }
     }
+
     private void hookSecurity(XC_LoadPackage.LoadPackageParam lpparam) {
         try {
             Class loadClass = lpparam.classLoader.loadClass("android.util.Base64");

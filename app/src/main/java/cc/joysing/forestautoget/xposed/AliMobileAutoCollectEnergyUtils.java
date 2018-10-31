@@ -12,6 +12,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
+import de.robv.android.xposed.XposedBridge;
+
 public class AliMobileAutoCollectEnergyUtils {
 
     private static String TAG = "AliMobileAutoCollectEnergyUtils";
@@ -112,6 +114,7 @@ public class AliMobileAutoCollectEnergyUtils {
     private static void finishWork() {
         isWebViewRefresh = false;
         // 打印收取了多少能量
+        XposedBridge.log("一共收取了" + totalEnergy + "g能量");
         Log.i(TAG, "一共收取了" + totalEnergy + "g能量");
     }
 
