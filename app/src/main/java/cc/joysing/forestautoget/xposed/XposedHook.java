@@ -8,13 +8,8 @@ import android.app.Notification;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.lang.reflect.Method;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import cc.joysing.forestautoget.service.AccessibilityServiceMonitor;
 import cc.joysing.forestautoget.service.AlipayForestMonitor;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
@@ -55,16 +50,23 @@ public class XposedHook implements IXposedHookLoadPackage {
                             Notification notification = (Notification) param.args[2];
                             String title = (String) notification.extras.get("android.title");
                             String text = (String) notification.extras.get("android.text");
+                            //因为支付宝通知是提前1分钟发的，所以一分钟后再打开
+                            int delay=60*1000;
                             XposedBridge.log("状态栏消息：" + title + "，" + text);
-                            if (title.contains("能量") || text.contains("能量")) {
-                                XposedBridge.log("60秒后打开蚂蚁森林");
-                                //因为支付宝通知是提前1分钟发的，所以一分钟后再打开
-                                new Timer().schedule(new TimerTask() {
-                                    public void run() {
-                                        XposedBridge.log("正在打开蚂蚁森林");
-                                        AlipayForestMonitor.startAlipay(context);
-                                    }
-                                }, 60 * 1000);
+                            if (title.contains("能量") ) {
+                                try {
+                                    delay = Integer.parseInt(title.split("能量")[1]);
+                                }catch (Exception e){
+                                    XposedBridge.log("Error：" + e);
+                                }
+                                AlipayForestMonitor.startAlipay(context,delay);
+                            }else if (text.contains("能量")) {
+                                try {
+                                    delay = Integer.parseInt(text.split("能量")[1]);
+                                }catch (Exception e){
+                                    XposedBridge.log("Error：" + e);
+                                }
+                                AlipayForestMonitor.startAlipay(context,delay);
                             }
 
                         }

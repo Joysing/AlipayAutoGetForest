@@ -144,7 +144,7 @@ public class AccessibilityServiceMonitor extends AccessibilityService {
     }
 
     public void startAlipayUI() {
-        AlipayForestMonitor.startAlipay(this);
+        AlipayForestMonitor.startAlipay(this,0);
         mHandle.sendEmptyMessageDelayed(MSG_DELAY_ENTER_LIANGTONG, DEFAULT_DELAY_TIME * 10);
     }
 }

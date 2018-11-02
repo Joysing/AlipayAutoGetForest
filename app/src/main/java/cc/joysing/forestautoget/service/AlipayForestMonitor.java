@@ -5,12 +5,16 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import java.net.URISyntaxException;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import de.robv.android.xposed.XposedBridge;
 
 public class AlipayForestMonitor {
     /**
      * 启动支付宝蚂蚁森林界面
      */
-    public static void startAlipay(Context mContext) {
+    public static void startAlipay(final Context mContext, int delay) {
         Toast.makeText(mContext, "正在打开蚂蚁森林",Toast.LENGTH_LONG).show();
         Intent intent = null;
         try {
@@ -20,6 +24,14 @@ public class AlipayForestMonitor {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-        mContext.startActivity(intent);
+        XposedBridge.log(delay/1000+"秒后打开蚂蚁森林");
+        final Intent finalIntent = intent;
+        new Timer().schedule(new TimerTask() {
+            public void run() {
+                XposedBridge.log("正在打开蚂蚁森林");
+                mContext.startActivity(finalIntent);
+            }
+        }, delay);
+
     }
 }
