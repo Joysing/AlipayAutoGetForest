@@ -15,20 +15,6 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/time_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/time_settings"
-            android:textSize="26sp"/>
-
-        <TimePicker
-            android:id="@+id/timepick"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:timePickerMode="spinner">
-        </TimePicker>
-
-        <TextView
             android:id="@+id/tv_readme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

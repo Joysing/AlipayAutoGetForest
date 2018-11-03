@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.util.Log;
 
 import java.lang.reflect.Method;
-import cc.joysing.forestautoget.service.AlipayForestMonitor;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
@@ -59,14 +58,14 @@ public class XposedHook implements IXposedHookLoadPackage {
                                 }catch (Exception e){
                                     XposedBridge.log("Error：" + e);
                                 }
-                                AlipayForestMonitor.startAlipay(context,delay);
+                                AliMobileAutoCollectEnergyUtils.startAlipay(context,delay);
                             }else if (text.contains("能量")) {
                                 try {
                                     delay = Integer.parseInt(text.split("能量")[1]);
                                 }catch (Exception e){
                                     XposedBridge.log("Error：" + e);
                                 }
-                                AlipayForestMonitor.startAlipay(context,delay);
+                                AliMobileAutoCollectEnergyUtils.startAlipay(context,delay);
                             }
 
                         }
