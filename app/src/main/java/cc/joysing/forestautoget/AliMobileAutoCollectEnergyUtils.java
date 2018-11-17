@@ -1,4 +1,4 @@
-package cc.joysing.forestautoget.xposed;
+package cc.joysing.forestautoget;
 
 import android.app.Activity;
 import android.content.Context;
@@ -18,6 +18,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import de.robv.android.xposed.XposedBridge;
+
+import static cc.joysing.forestautoget.util.Config.TAG;
 
 public class AliMobileAutoCollectEnergyUtils {
 
@@ -110,6 +112,7 @@ public class AliMobileAutoCollectEnergyUtils {
      */
     private static void refreshWebView() {
         showToast("一共收取了" + totalEnergy + "g能量");
+        XposedBridge.log("一共收取了" + totalEnergy + "g能量");
         isWebViewRefresh = true;
     }
 
@@ -119,7 +122,6 @@ public class AliMobileAutoCollectEnergyUtils {
     private static void finishWork() {
         isWebViewRefresh = false;
         // 打印收取了多少能量
-        XposedBridge.log("一共收取了" + totalEnergy + "g能量");
         Log.i(TAG, "一共收取了" + totalEnergy + "g能量");
     }
 
@@ -307,20 +309,20 @@ public class AliMobileAutoCollectEnergyUtils {
      * 启动支付宝蚂蚁森林界面
      */
     public static void startAlipay(final Context mContext, int delay) {
-        Toast.makeText(mContext, "正在打开蚂蚁森林",Toast.LENGTH_LONG).show();
+        Log.i(TAG,"正在打开蚂蚁森林");
         Intent intent = null;
         try {
-            intent = Intent.parseUri("alipays://platformapi/startapp?appId=20000067&url=https://60000002.h5app.alipay.com/app/src/home.html",
+            intent = Intent.parseUri("alipays://platformapi/startapp?appId=60000002",
                     Intent.URI_INTENT_SCHEME);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-        XposedBridge.log(delay/1000+"秒后打开蚂蚁森林");
+        Log.i(TAG,delay/1000+"秒后打开蚂蚁森林");
         final Intent finalIntent = intent;
         new Timer().schedule(new TimerTask() {
             public void run() {
-                XposedBridge.log("正在打开蚂蚁森林");
+                Log.i(TAG,"正在打开蚂蚁森林");
                 mContext.startActivity(finalIntent);
             }
         }, delay);

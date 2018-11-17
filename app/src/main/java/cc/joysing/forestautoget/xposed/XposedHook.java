@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 
 import java.lang.reflect.Method;
+
+import cc.joysing.forestautoget.AliMobileAutoCollectEnergyUtils;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
@@ -62,6 +64,7 @@ public class XposedHook implements IXposedHookLoadPackage {
                             }else if (text.contains("能量")) {
                                 try {
                                     delay = Integer.parseInt(text.split("能量")[1]);
+                                    XposedBridge.log(delay/1000+"秒后打开蚂蚁森林");
                                 }catch (Exception e){
                                     XposedBridge.log("Error：" + e);
                                 }

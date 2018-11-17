@@ -2,7 +2,9 @@
     <string name="app_name">蚂蚁森林自动收能量</string>
     <string name="alipay_forest_title">蚂蚁森林自动采集+定时采集</string>
     <string name="introduce">蚂蚁森林自动采集+定时采集</string>
-    <string name="readme">"使用说明书：
+    <string name="time_settings">设置定时器时间</string>
+    <string name="readme">"说明：
+        方法一：（即使软件被杀了也有效）
         1. 打开蚂蚁森林时会自动收取自己和好友的能量
         2. 如果要定时打开蚂蚁森林，请这样做：
         2.1 用手机自带的日历新建活动，活动内容写：能量1000
@@ -10,5 +12,9 @@
         2.3 如果想延时2秒，就写：能量2000
         3. 加入延时是因为支付宝生成能量的时间可能和手机时间不一样。
         3.1 比如我的是7点15分25秒生成的，15分0秒时打开是没有能量收的。
+        方法二：
+        1、直接滑动上方的日期设定一个时间就行了。但是要保证本程序不被后台杀死。
+
+        在virtualXposed上只能用方法二，因为virtualXposed和真机属于两个环境，程序运行在里面，hook不到外面真机的日程活动。
     </string>
 </resources>
