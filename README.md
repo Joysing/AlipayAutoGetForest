@@ -15,6 +15,7 @@
 
 - 1、软件基于xposed开发，需要xposed框架。
 - 2、只有安卓的，iOS我不会。
+- 3、无xposed框架的手机可以安装virtualXposed。
 
 
 
