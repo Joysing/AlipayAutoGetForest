@@ -312,8 +312,7 @@ public class AliMobileAutoCollectEnergyUtils {
         Log.i(TAG,"正在打开蚂蚁森林");
         Intent intent = null;
         try {
-            intent = Intent.parseUri("alipays://platformapi/startapp?appId=60000002",
-                    Intent.URI_INTENT_SCHEME);
+            intent = Intent.parseUri("alipays://platformapi/startapp?appId=60000002", Intent.URI_INTENT_SCHEME);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         } catch (URISyntaxException e) {
             e.printStackTrace();
